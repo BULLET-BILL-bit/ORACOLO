@@ -1,0 +1,134 @@
+index.html
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>L'Oracolo</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: #111;
+            color: #eee;
+
+            font-family: Georgia, serif;
+            text-align: center;
+        }
+
+        .oracolo {
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .simbolo {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+            letter-spacing: 5px;
+            margin: 0 0 10px;
+        }
+
+        .sottotitolo {
+            font-size: 14px;
+            opacity: 0.6;
+            margin-bottom: 40px;
+        }
+
+        .domani {
+            font-size: 16px;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        .profezia {
+            font-size: 24px;
+            line-height: 1.5;
+            padding: 30px;
+            border-top: 1px solid #555;
+            border-bottom: 1px solid #555;
+        }
+
+        .firma {
+            margin-top: 30px;
+            font-size: 14px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="oracolo">
+
+    <div class="simbolo">✦</div>
+
+    <h1>L'ORACOLO</h1>
+
+    <div class="sottotitolo">
+        Il futuro è già stato scritto.
+    </div>
+
+    <div class="domani">
+        DOMANI
+    </div>
+
+    <div class="profezia" id="profezia">
+        Consultando il destino...
+    </div>
+
+    <div class="firma">
+        ✧ L'Oracolo ha parlato ✧
+    </div>
+
+</div>
+
+<script>
+
+    const profezie = [
+        "Una persona che non vedi da tempo entrerà nei tuoi pensieri.",
+        "Domani troverai qualcosa proprio nel luogo in cui avevi già guardato.",
+        "Una scelta apparentemente insignificante cambierà il corso della tua giornata.",
+        "Riceverai una notizia che non stavi aspettando.",
+        "Domani avrai fame. Non ignorare questo segno.",
+        "Qualcuno pronuncerà il tuo nome quando non sarai presente.",
+        "Domani perderai qualcosa di piccolo e troverai qualcosa di più prezioso.",
+        "Una coincidenza attirerà la tua attenzione. Non sarà una coincidenza.",
+        "Domani prenderai una strada diversa dal solito.",
+        "Qualcuno ti farà una domanda alla quale non saprai rispondere.",
+        "Domani qualcosa cadrà. Non necessariamente per terra.",
+        "Il terzo oggetto che toccherai domani avrà un significato.",
+        "Domani dirai 'vabbè' almeno una volta. L'Oracolo lo sa.",
+        "Una cosa che avevi dimenticato tornerà a galla.",
+        "Domani avrai ragione. Ma nessuno ti darà soddisfazione."
+    ];
+
+    // Calcola la data di DOMANI
+    const domani = new Date();
+    domani.setDate(domani.getDate() + 1);
+
+    // Trasforma la data in un numero
+    const seme =
+        domani.getFullYear() * 10000 +
+        (domani.getMonth() + 1) * 100 +
+        domani.getDate();
+
+    // Sceglie sempre la stessa profezia per la stessa data
+    const indice = seme % profezie.length;
+
+    document.getElementById("profezia").textContent =
+        profezie[indice];
+
+</script>
+
+</body>
+</html>
