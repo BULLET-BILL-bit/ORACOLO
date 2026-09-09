@@ -1,133 +1,78 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+// ===============================
+// IDENTITÀ DELL'ORACOLO
+// ===============================
 
-    <title>L'Oracolo</title>
+// Controlla se questo browser ha già un'identità
+let oracoloID = localStorage.getItem("oracoloID");
 
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+// Se non ce l'ha, ne crea una nuova
+if (!oracoloID) {
+    oracoloID = Math.floor(Math.random() * 1000000000);
+    localStorage.setItem("oracoloID", oracoloID);
+}
 
-            background: #111;
-            color: #eee;
 
-            font-family: Georgia, serif;
-            text-align: center;
-        }
+// ===============================
+// DATA DI OGGI
+// ===============================
 
-        .oracolo {
-            width: 90%;
-            max-width: 600px;
-        }
+const oggi = new Date();
 
-        .simbolo {
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
+// Trasforma la data in un numero
+const data =
+    oggi.getFullYear() * 10000 +
+    (oggi.getMonth() + 1) * 100 +
+    oggi.getDate();
 
-        h1 {
-            font-size: 28px;
-            letter-spacing: 5px;
-            margin: 0 0 10px;
-        }
 
-        .sottotitolo {
-            font-size: 14px;
-            opacity: 0.6;
-            margin-bottom: 40px;
-        }
+// ===============================
+// SEME DELLA PROFEZIA
+// ===============================
 
-        .domani {
-            font-size: 16px;
-            letter-spacing: 4px;
-            margin-bottom: 20px;
-        }
+// Unisce la data all'identità del browser
+const seme = data + Number(oracoloID);
 
-        .profezia {
-            font-size: 24px;
-            line-height: 1.5;
-            padding: 30px;
-            border-top: 1px solid #555;
-            border-bottom: 1px solid #555;
-        }
 
-        .firma {
-            margin-top: 30px;
-            font-size: 14px;
-            opacity: 0.5;
-        }
-    </style>
-</head>
+// ===============================
+// PROFEZIE TEMPORANEE
+// ===============================
 
-<body>
+const profezie = [
+    "Una persona che non vedi da tempo entrerà nei tuoi pensieri.",
+    "Oggi troverai qualcosa proprio nel luogo in cui avevi già guardato.",
+    "Una scelta apparentemente insignificante cambierà il corso della tua giornata.",
+    "Riceverai una notizia che non stavi aspettando.",
+    "Oggi avrai fame. Non ignorare questo segno.",
+    "Qualcuno pronuncerà il tuo nome quando non sarai presente.",
+    "Oggi perderai qualcosa di piccolo e troverai qualcosa di più prezioso.",
+    "Una coincidenza attirerà la tua attenzione. Non sarà una coincidenza.",
+    "Oggi prenderai una strada diversa dal solito.",
+    "Qualcuno ti farà una domanda alla quale non saprai rispondere.",
+    "Oggi qualcosa cadrà. Non necessariamente per terra.",
+    "Il terzo oggetto che toccherai oggi avrà un significato.",
+    "Oggi dirai 'vabbè' almeno una volta. L'Oracolo lo sa.",
+    "Una cosa che avevi dimenticato tornerà a galla.",
+    "Oggi avrai ragione. Ma nessuno ti darà soddisfazione."
+];
 
-<div class="oracolo">
 
-    <div class="simbolo">✦</div>
+// ===============================
+// SCELTA DELLA PROFEZIA
+// ===============================
 
-    <h1>L'ORACOLO</h1>
+// Sceglie sempre la stessa profezia
+// per la stessa persona nello stesso giorno
+const indice = seme % profezie.length;
 
-    <div class="sottotitolo">
-        Il futuro è già stato scritto.
-    </div>
+document.getElementById("profezia").textContent =
+    profezie[indice];
 
-    <div class="domani">
-        DOMANI
-    </div>
 
-    <div class="profezia" id="profezia">
-        Consultando il destino...
-    </div>
+// ===============================
+// DEBUG
+// ===============================
 
-    <div class="firma">
-        ✧ L'Oracolo ha parlato ✧
-    </div>
-
-</div>
-
-<script>
-
-    const profezie = [
-        "Una persona che non vedi da tempo entrerà nei tuoi pensieri.",
-        "Domani troverai qualcosa proprio nel luogo in cui avevi già guardato.",
-        "Una scelta apparentemente insignificante cambierà il corso della tua giornata.",
-        "Riceverai una notizia che non stavi aspettando.",
-        "Domani avrai fame. Non ignorare questo segno.",
-        "Qualcuno pronuncerà il tuo nome quando non sarai presente.",
-        "Domani perderai qualcosa di piccolo e troverai qualcosa di più prezioso.",
-        "Una coincidenza attirerà la tua attenzione. Non sarà una coincidenza.",
-        "Domani prenderai una strada diversa dal solito.",
-        "Qualcuno ti farà una domanda alla quale non saprai rispondere.",
-        "Domani qualcosa cadrà. Non necessariamente per terra.",
-        "Il terzo oggetto che toccherai domani avrà un significato.",
-        "Domani dirai 'vabbè' almeno una volta. L'Oracolo lo sa.",
-        "Una cosa che avevi dimenticato tornerà a galla.",
-        "Domani avrai ragione. Ma nessuno ti darà soddisfazione."
-    ];
-
-    // Calcola la data di DOMANI
-    const domani = new Date();
-    domani.setDate(domani.getDate() + 1);
-
-    // Trasforma la data in un numero
-    const seme =
-        domani.getFullYear() * 10000 +
-        (domani.getMonth() + 1) * 100 +
-        domani.getDate();
-
-    // Sceglie sempre la stessa profezia per la stessa data
-    const indice = seme % profezie.length;
-
-    document.getElementById("profezia").textContent =
-        profezie[indice];
-
-</script>
-
-</body>
-</html>
+// Questi valori si possono vedere nella Console (F12)
+console.log("ID Oracolo:", oracoloID);
+console.log("Data:", data);
+console.log("Seme:", seme);
