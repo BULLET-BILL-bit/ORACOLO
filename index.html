@@ -1,30 +1,19 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    
     <title>L'Oracolo</title>
 
     <style>
         body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            background: #111;
+            background-color: #111;
             color: #eee;
-
             font-family: Georgia, serif;
             text-align: center;
-        }
-
-        .oracolo {
-            width: 90%;
-            max-width: 600px;
+            padding: 60px 20px;
         }
 
         .simbolo {
@@ -33,42 +22,41 @@
         }
 
         h1 {
-            font-size: 28px;
-            letter-spacing: 5px;
-            margin: 0 0 10px;
+            font-size: 42px;
+            letter-spacing: 6px;
+            margin-bottom: 10px;
         }
 
         .sottotitolo {
-            font-size: 14px;
-            opacity: 0.6;
-            margin-bottom: 40px;
+            font-style: italic;
+            color: #aaa;
+            margin-bottom: 50px;
         }
 
-        .domani {
-            font-size: 16px;
+        .oggi {
+            font-size: 14px;
             letter-spacing: 4px;
-            margin-bottom: 20px;
+            color: #888;
+            margin-bottom: 25px;
         }
 
         .profezia {
             font-size: 24px;
-            line-height: 1.5;
-            padding: 30px;
-            border-top: 1px solid #555;
-            border-bottom: 1px solid #555;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto 50px auto;
         }
 
         .firma {
-            margin-top: 30px;
+            color: #777;
             font-size: 14px;
-            opacity: 0.5;
+            letter-spacing: 2px;
         }
     </style>
 </head>
 
-<body>
 
-<div class="oracolo">
+<body>
 
     <div class="simbolo">✦</div>
 
@@ -78,7 +66,7 @@
         Il futuro è già stato scritto.
     </div>
 
-    <div class="domani">
+    <div class="oggi">
         OGGI
     </div>
 
@@ -90,83 +78,147 @@
         ✧ L'Oracolo ha parlato ✧
     </div>
 
-</div>
 
-<script>
+    <script>
 
-    // ===============================
-    // IDENTITÀ DELL'ORACOLO
-    // ===============================
+        // IDENTITÀ DEL BROWSER
+        let oracoloID = localStorage.getItem("oracoloID");
 
-    let oracoloID = localStorage.getItem("oracoloID");
-
-    if (!oracoloID) {
-        oracoloID = Math.floor(Math.random() * 1000000000);
-        localStorage.setItem("oracoloID", oracoloID);
-    }
+        if (!oracoloID) {
+            oracoloID = Math.floor(Math.random() * 1000000000);
+            localStorage.setItem("oracoloID", oracoloID);
+        }
 
 
-    // ===============================
-    // DATA DI OGGI
-    // ===============================
+        // DATA DI OGGI
+        const oggi = new Date();
 
-    const oggi = new Date();
-
-    const data =
-        oggi.getFullYear() * 10000 +
-        (oggi.getMonth() + 1) * 100 +
-        oggi.getDate();
+        const data =
+            oggi.getFullYear() * 10000 +
+            (oggi.getMonth() + 1) * 100 +
+            oggi.getDate();
 
 
-    // ===============================
-    // SEME DELLA PROFEZIA
-    // ===============================
-
-    const seme = data + Number(oracoloID);
+        // SEME DEL DESTINO
+        const seme = data + Number(oracoloID);
 
 
-    // ===============================
-    // PROFEZIE TEMPORANEE
-    // ===============================
+        // GENERATORE PSEUDO-CASUALE DETERMINISTICO
+        let stato = seme >>> 0;
 
-    const profezie = [
-        "Una persona che non vedi da tempo entrerà nei tuoi pensieri.",
-        "Oggi troverai qualcosa proprio nel luogo in cui avevi già guardato.",
-        "Una scelta apparentemente insignificante cambierà il corso della tua giornata.",
-        "Riceverai una notizia che non stavi aspettando.",
-        "Oggi avrai fame. Non ignorare questo segno.",
-        "Qualcuno pronuncerà il tuo nome quando non sarai presente.",
-        "Oggi perderai qualcosa di piccolo e troverai qualcosa di più prezioso.",
-        "Una coincidenza attirerà la tua attenzione. Non sarà una coincidenza.",
-        "Oggi prenderai una strada diversa dal solito.",
-        "Qualcuno ti farà una domanda alla quale non saprai rispondere.",
-        "Oggi qualcosa cadrà. Non necessariamente per terra.",
-        "Il terzo oggetto che toccherai oggi avrà un significato.",
-        "Oggi dirai 'vabbè' almeno una volta. L'Oracolo lo sa.",
-        "Una cosa che avevi dimenticato tornerà a galla.",
-        "Oggi avrai ragione. Ma nessuno ti darà soddisfazione."
-    ];
+        function casuale() {
+            stato = (stato * 1664525 + 1013904223) >>> 0;
+            return stato / 4294967296;
+        }
 
 
-    // ===============================
-    // SCELTA DELLA PROFEZIA
-    // ===============================
+        // MAZZO 1 — SOGGETTO
+        const mazzo1 = [
+            "Il Destino",
+            "La brama di conoscenza",
+            "Una persona sconosciuta",
+            "Una persona che conosci",
+            "Uno straniero venuto dal mare",
+            "Qualcuno che lavora con te",
+            "Qualcuno che non vedi da tanto",
+            "Qualcuno alle tue spalle",
+            "La tua stessa mente",
+            "La persona che vedrai per prima",
+            "La terza persona che saluterai",
+            "Una voce fallace",
+            "Un'ombra fugace",
+            "Il tu del passato",
+            "Una persona che credevi un'altra persona"
+        ];
 
-    const indice = seme % profezie.length;
 
-    document.getElementById("profezia").textContent =
-        profezie[indice];
+        // MAZZO 2 — VERBO
+        const mazzo2 = [
+            "troverà per te",
+            "ti farà perdere",
+            "ti farà incontrare",
+            "ti farà dimenticare",
+            "celerà ai tuoi sensi",
+            "ti donerà",
+            "ti porterà a scoprire",
+            "ti farà rompere",
+            "andrà a braccetto con",
+            "ti permetterà di evitare",
+            "ti farà dubitare di",
+            "non è detto che porti a",
+            "potrebbe volerti parlare di",
+            "ti metterà in difficoltà attraverso",
+            "ti mentirà su"
+        ];
 
 
-    // ===============================
-    // DEBUG
-    // ===============================
+        // MAZZO 3 — COMPLEMENTO OGGETTO
+        const mazzo3 = [
+            "una moneta sfortunata",
+            "una chiave a lungo cercata",
+            "una fotografia ancora da scattare",
+            "un segreto a lungo mantenuto",
+            "una risposta chiara e precisa",
+            "un messaggio oscuro e velato",
+            "un sentimento dirompente",
+            "qualcosa di molto vicino",
+            "qualcosa di davvero lontano",
+            "un'idea abbandonata ma mai dimenticata",
+            "qualcosa che non appartiene a nessuno",
+            "un prossimo giorno di festa",
+            "un'eco di un amante",
+            "un te stesso del futuro",
+            "qualcuno che credevi qualcun altro"
+        ];
 
-    console.log("ID Oracolo:", oracoloID);
-    console.log("Data:", data);
-    console.log("Seme:", seme);
 
-</script>
+        // MAZZO 4 — COMMENTO
+        const mazzo4 = [
+            "Non indossare rosso, bianco o nero.",
+            "Controlla spesso l'orario, ma non dargli peso.",
+            "Era inevitabile.",
+            "Questo non era previsto.",
+            "Prendilo come un avvertimento.",
+            "Interessante.",
+            "Non è una coincidenza.",
+            "Potrebbe andare peggio.",
+            "Guardati dalla pioggia.",
+            "Finalmente.",
+            "Non guardarti alle spalle.",
+            "Smetti di inseguire ciò che non puoi raggiungere.",
+            "Che cosa potrebbe mai andare storto?",
+            "Questo spiega molte cose.",
+            "Non credere a niente di ciò che ti dirà."
+        ];
+
+
+        // ESTRAZIONE DA UN MAZZO
+        function scegli(mazzo) {
+            const indice = Math.floor(casuale() * mazzo.length);
+            return mazzo[indice];
+        }
+
+
+        // COMPOSIZIONE DELLA PROFEZIA
+        const profezia =
+            scegli(mazzo1) + " " +
+            scegli(mazzo2) + " " +
+            scegli(mazzo3) + "... " +
+            scegli(mazzo4);
+
+
+        // VISUALIZZAZIONE
+        document.getElementById("profezia").textContent = profezia;
+
+
+        // DEBUG
+        console.log("ID Oracolo:", oracoloID);
+        console.log("Data:", data);
+        console.log("Seme:", seme);
+        console.log("Profezia:", profezia);
+
+    </script>
 
 </body>
+
 </html>
